@@ -2,7 +2,7 @@
 # @Author: perfectus
 # @Date:   2018-06-27 20:45:28
 # @Last Modified by:   sumansaurabh
-# @Last Modified time: 2018-06-28 00:19:29
+# @Last Modified time: 2018-06-28 01:29:59
 
 import config
 from Models.Words import Words
@@ -17,11 +17,10 @@ from sqlalchemy.sql import label
 def fetch_words(n):
 	
 
-	other_time = datetime.now() - timedelta(hours=0.01)
 
 
 
-	wrong_words=config.db.session.query(Words).filter(Words.correct/Words.attempts>0.7).limit(6)
+	wrong_words=config.db.session.query(Words).filter(Words.attempts!=0).filter(Words.correct/Words.attempts<0.7).limit(4)
 
 	word_list=[]
 
@@ -54,7 +53,8 @@ def fetch_words(n):
 
 		word_list.append(word)
 
-	new_words=config.db.session.query(Words).filter(Words.last_appeared<other_time).limit(10)
+	other_time = datetime.now() - timedelta(hours=0.01)
+	new_words=config.db.session.query(Words).filter(Words.last_appeared<other_time).filter(Words.status==0).order_by(func.random()).limit(12-len(word_list))
 	for itm in new_words:
 		word={
 			"word": itm.word,

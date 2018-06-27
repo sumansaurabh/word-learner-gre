@@ -2,7 +2,7 @@
 # @Author: perfectus
 # @Date:   2018-06-27 16:56:48
 # @Last Modified by:   sumansaurabh
-# @Last Modified time: 2018-06-28 00:20:08
+# @Last Modified time: 2018-06-28 01:05:24
 
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
@@ -27,6 +27,8 @@ class Words(Base):
 	last_appeared=Column(DateTime, default=_get_date())
 	attempts=Column(Integer, default=0)
 	correct=Column(Integer, default=0)
+	status=Column(Integer, default=0)
+
 
 		
 	def __repr__(self):

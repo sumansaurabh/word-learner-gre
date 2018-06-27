@@ -12,7 +12,7 @@ from Models.Words import Words
 import flask
 import requests
 from services import BuildQuestions
-
+from datetime import datetime, timedelta
 import config
 from Base_controller import login_required, jsonify_resp
 import logging																																										
@@ -54,14 +54,40 @@ def submit_word():
 	data=request.json
 
 	if data['state']=="CORRECT":
-		config.db.session.query(Words).filter_by(word=data['word']).update({"attempts": Words.attempts+1, "correct":Words.correct+1})
+		config.db.session.query(Words).filter_by(word=data['word']).update({"attempts": Words.attempts+1, "correct":Words.correct+1, "last_appeared": datetime.now()})
 	else:
-		config.db.session.query(Words).filter_by(word=data['word']).update({"attempts": Words.attempts+1})
+		config.db.session.query(Words).filter_by(word=data['word']).update({"attempts": Words.attempts+1, "last_appeared": datetime.now()})
 	
 	config.db.session.commit()
 
 	data=BuildQuestions.get_average_score()
 
 
+	
+	return {'data': data}, 200
+
+@api.route('/api/average_score', methods=['GET'])
+@jsonify_resp
+def get_average_score():
+	"""Checkk authentication flow"""
+
+	data=BuildQuestions.get_average_score()
+
+
+	
+	return {'data': data}, 200
+
+
+@api.route('/api/ignore_word', methods=['POST'])
+@jsonify_resp
+def ignore_word():
+	"""Checkk authentication flow"""
+
+	data=request.json
+
+	print(data)
+
+	config.db.session.query(Words).filter_by(word=data['word']).update({"status": -1})
+	config.db.session.commit()
 	
 	return {'data': data}, 200

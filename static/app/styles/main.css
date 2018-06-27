@@ -13,7 +13,7 @@ body {
 }
 .word-card {
 	/*position: absolute;	*/
-	height: 300px;
+	height: 260px;
 }
 
 .word-label {
@@ -43,7 +43,7 @@ body {
 	position: absolute;	
 	background-color: #00800070;
 	z-index: 2;
-	height: 300px;
+	height: 260px;
 	width:96%;
 }
 
@@ -51,7 +51,7 @@ body {
 	position: absolute;	
 	background-color: #80000070;
 	z-index: 2;
-	height: 300px;
+	height: 260px;
 	width:96%
 }
 
@@ -60,10 +60,22 @@ body {
     position: relative;
     font-size: 25px;
     top: 85%;
-    left: 70%;
+    left: 55%;
 }
 
 .selected-option {
 	color: white;
     background-color: black;
+}
+
+.score-board {
+	background-color: brown;
+	color: white;
+	font-size: 28px;
+
+}
+
+.score-label {
+	margin-left: 10px;
+	margin-right: 33%;
 }

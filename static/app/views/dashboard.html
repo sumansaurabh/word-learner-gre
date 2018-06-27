@@ -1,29 +1,40 @@
 <div class="dashboard-page">
-  <div class="container-fluid">
-    <div class="row">
 
-      <div ng-repeat="word in word_list" class="col-sm-4 col-md-4 container-word">
-      	<div ng-show="word.state!=='ACTIVE'" ng-class="{'green-lay': (word.state=='CORRECT'), 'red-lay': (word.state=='INCORRECT')}">
+	<div class="score-board">
+		<span class="score-label">Current Score: {{current_score.correct}}/{{current_score.attempts}} </span>
+		<span class="score-label">Average Score till Last Week: {{average_score.correct}}/{{average_score.attempts}}</span>
+		<button ng-show="current_score.attempts >=12" style="background-color: green" ng-click="reset_word_list()">Reset</button>
+	</div>
 
-      		<div class="link-word-google">
-      			<a href="https://www.google.co.in/search?q={{word.word}} meaning" target="_blank">
-	    		Open in Google ->
-      				
-      			</a>
-      		</div>
-      		
-      	</div>
-      	<div class="word-card">
-	      	<div class="word-label">{{word.word}}</div>
-	      	<div ng-repeat="option in word.options" ng-click="word.selected=$index; submit_answer($parent.$index, $index)" >
-	      		<div class="options-meaning" ng-class="{'selected-option': (word.selected==$index)}">{{option}}</div>
+
+  	<div class="container-fluid">
+	    <div class="row">
+
+	      <div ng-repeat="word in word_list track by $index" class="col-sm-4 col-md-4 container-word">
+	      	<div ng-show="word.state!=='ACTIVE'" ng-class="{'green-lay': (word.state=='CORRECT'), 'red-lay': (word.state=='INCORRECT')}">
+
+
+
+	      		<div class="link-word-google">
+	      			<button style="background-color: orange" ng-click="ignore_word($index)">Ignore</button>
+	      			<a href="https://www.google.co.in/search?q={{word.word}} meaning" target="_blank">
+		    		Open in Google ->
+	      				
+	      			</a>
+	      		</div>
+	      		
 	      	</div>
-      	</div>
+	      	<div class="word-card">
+		      	<div class="word-label">{{word.word}}</div>
+		      	<div ng-repeat="option in word.options" ng-click="word.selected=$index; submit_answer($parent.$index, $index)" >
+		      		<div class="options-meaning" ng-class="{'selected-option': (word.selected==$index)}">{{option}}</div>
+		      	</div>
+	      	</div>
 
-      </div>
-     
-    </div>
-  </div>
+	      </div>
+	     
+	    </div>
+	</div>
 </div>
 
 
