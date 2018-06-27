@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: perfectus
 # @Date:   2018-06-27 16:56:48
-# @Last Modified by:   perfectus
-# @Last Modified time: 2018-06-27 20:56:47
+# @Last Modified by:   sumansaurabh
+# @Last Modified time: 2018-06-28 00:20:08
 
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
@@ -25,8 +25,8 @@ class Words(Base):
 	word = Column(String(100), primary_key=True)
 	meaning = Column(String(2500))
 	last_appeared=Column(DateTime, default=_get_date())
-	attempts=Column(Integer, default=1)
-	correct=Column(Integer, default=1)
+	attempts=Column(Integer, default=0)
+	correct=Column(Integer, default=0)
 
 		
 	def __repr__(self):

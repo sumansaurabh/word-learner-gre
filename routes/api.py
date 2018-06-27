@@ -7,6 +7,7 @@ routes.api.py
 """
 from flask import (Blueprint, current_app, render_template,
 				   request, send_from_directory, jsonify)
+
 from Models.Words import Words
 import flask
 import requests
@@ -45,8 +46,22 @@ def get_word_list():
 	return {"data": word_list}, 200
 	
 
+@api.route('/api/submit', methods=['POST'])
+@jsonify_resp
+def submit_word():
+	"""Checkk authentication flow"""
+
+	data=request.json
+
+	if data['state']=="CORRECT":
+		config.db.session.query(Words).filter_by(word=data['word']).update({"attempts": Words.attempts+1, "correct":Words.correct+1})
+	else:
+		config.db.session.query(Words).filter_by(word=data['word']).update({"attempts": Words.attempts+1})
 	
+	config.db.session.commit()
 
-	return jsonify({'hello': "I am your coffee"})
+	data=BuildQuestions.get_average_score()
 
 
+	
+	return {'data': data}, 200

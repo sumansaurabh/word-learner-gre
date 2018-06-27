@@ -31,9 +31,6 @@ app.controller('DashboardCtrl', function($scope, $state, $http) {
     });
 
     $scope.submit_answer = function(question_idx, option_idx) {
-        console.log("question_idx ->",question_idx);
-        console.log("option_idx ->",option_idx);
-
         console.log($scope.word_list[question_idx])
         option_idx+=1
         if($scope.word_list[question_idx].state==="ACTIVE") {
@@ -45,7 +42,19 @@ app.controller('DashboardCtrl', function($scope, $state, $http) {
             } else {
                 $scope.word_list[question_idx].state="INCORRECT";
             }
+        } else {
+
         }
+
+        $http({
+            method: 'POST',
+            url: "/api/submit",
+            data: $scope.word_list[question_idx]
+        }).then(function (response) {
+            console.log(response)
+        });
+
+
 
         console.log("sdvmksdvm")
 
