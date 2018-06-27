@@ -1,0 +1,17 @@
+# pycharm
+.idea/
+
+# database
+*.sqlite
+*.db
+
+# bower dependencies
+**/bower_components/
+**/node_modules/
+
+.tmp/
+*/dist/**
+# virtualenv
+venv/
+
+*.pyc
