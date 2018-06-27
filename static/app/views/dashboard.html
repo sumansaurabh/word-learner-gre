@@ -1,18 +1,27 @@
 <div class="dashboard-page">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-3 col-md-3 main">
-      	sfvskvnsdkv -1
+
+      <div ng-repeat="word in word_list" class="col-sm-4 col-md-4 container-word">
+      	<div ng-show="word.state!=='ACTIVE'" ng-class="{'green-lay': (word.state=='CORRECT'), 'red-lay': (word.state=='INCORRECT')}">
+
+      		<div class="link-word-google">
+      			<a href="https://www.google.co.in/search?q={{word.word}} meaning" target="_blank">
+	    		Open in Google ->
+      				
+      			</a>
+      		</div>
+      		
+      	</div>
+      	<div class="word-card">
+	      	<div class="word-label">{{word.word}}</div>
+	      	<div ng-repeat="option in word.options" ng-click="word.selected=$index; submit_answer($parent.$index, $index)" >
+	      		<div class="options-meaning" ng-class="{'selected-option': (word.selected==$index)}">{{option}}</div>
+	      	</div>
+      	</div>
+
       </div>
-      <div class="col-sm-3 col-md-3 main">
-      	sfvskvnsdkv -2
-      </div>
-      <div class="col-sm-3 col-md-3 main">
-      	sfvskvnsdkv -3
-      </div>
-      <div class="col-sm-3 col-md-3 main">
-      	sfvskvnsdkv -3
-      </div>
+     
     </div>
   </div>
 </div>
