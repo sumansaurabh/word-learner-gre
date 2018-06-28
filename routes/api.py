@@ -44,6 +44,14 @@ def get_word_list():
 
 	word_list=BuildQuestions.fetch_words(10)
 	return {"data": word_list}, 200
+
+@api.route('/api/fetch_limited/<limit>', methods=['GET'])
+@jsonify_resp
+def get_limited_word_list(limit):
+	"""Checkk authentication flow"""
+
+	word_list=BuildQuestions.fetch_limited_question(limit)
+	return {"data": word_list}, 200
 	
 
 @api.route('/api/submit', methods=['POST'])

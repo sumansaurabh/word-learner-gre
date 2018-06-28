@@ -22,7 +22,8 @@ app.controller('DashboardCtrl', function($scope, $state, $http) {
     
     
 
-    $scope.word_list=[]
+    $scope.word_list=[];
+    var queue=[];
 
     function fetch_words() {
         $http({
@@ -58,10 +59,8 @@ app.controller('DashboardCtrl', function($scope, $state, $http) {
         
         option_idx+=1;
         $scope.current_score.attempts+=1;
+        queue.push(question_idx);
         if($scope.word_list[question_idx].state==="ACTIVE") {
-
-            console.log("sdsdfs");
-
             if($scope.word_list[question_idx].answer_idx===option_idx) {
                 $scope.current_score.correct+=1;
                 $scope.word_list[question_idx].state="CORRECT";
@@ -69,6 +68,8 @@ app.controller('DashboardCtrl', function($scope, $state, $http) {
                 $scope.word_list[question_idx].state="INCORRECT";
             }
         }
+
+        fetch_limited_question();
 
         $http({
             method: 'POST',
@@ -94,6 +95,23 @@ app.controller('DashboardCtrl', function($scope, $state, $http) {
             $scope.word_list.splice(question_idx,1);
 
         });
+    }
+
+    function fetch_limited_question() {
+
+        if(queue.length <= 2) {
+            return
+        }
+
+        var question_idx=queue.shift();
+
+        $http({
+            method: 'GET',
+            url: "/api/fetch_limited/1"
+        }).then(function (response) {
+            $scope.word_list[question_idx]=response.data.data[0];
+        });
+
     }
 
     

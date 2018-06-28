@@ -2,7 +2,7 @@
 # @Author: perfectus
 # @Date:   2018-06-27 20:45:28
 # @Last Modified by:   sumansaurabh
-# @Last Modified time: 2018-06-28 01:29:59
+# @Last Modified time: 2018-06-28 11:56:53
 
 import config
 from Models.Words import Words
@@ -13,14 +13,44 @@ from sqlalchemy.sql import label
 
 
 
+def fetch_limited_question(n):
+
+	word_list=[]
+	other_time = datetime.now() - timedelta(hours=0.01)
+	new_words=config.db.session.query(Words).filter(Words.last_appeared<other_time).filter(Words.status==0).order_by(func.random()).limit(n)
+	for itm in new_words:
+		word={
+			"word": itm.word,
+			"options": []
+		}
+
+
+		options_obj=config.db.session.query(Words).order_by(func.random()).limit(4)
+		options_list=[]
+
+		for x in options_obj:
+			options_list.append(x.meaning)
+		idx=random.randint(0,4)
+
+		options_list=options_list[:idx]+[itm.meaning]+options_list[idx:]
+
+		word["options"]=options_list
+		word["answer_idx"]=idx+1
+		word["answer"]=itm.meaning
+		word["attempts"]=itm.attempts
+		word["correct"]=itm.correct
+		word["state"]="ACTIVE"
+
+
+		word_list.append(word)
+
+	return word_list
+
+
 
 def fetch_words(n):
-	
 
-
-
-
-	wrong_words=config.db.session.query(Words).filter(Words.attempts!=0).filter(Words.correct/Words.attempts<0.7).limit(4)
+	wrong_words=config.db.session.query(Words).filter(Words.attempts!=0).filter(Words.correct/Words.attempts<0.7).limit(1)
 
 	word_list=[]
 
@@ -54,7 +84,7 @@ def fetch_words(n):
 		word_list.append(word)
 
 	other_time = datetime.now() - timedelta(hours=0.01)
-	new_words=config.db.session.query(Words).filter(Words.last_appeared<other_time).filter(Words.status==0).order_by(func.random()).limit(12-len(word_list))
+	new_words=config.db.session.query(Words).filter(Words.last_appeared<other_time).filter(Words.status==0).order_by(func.random()).limit(4-len(word_list))
 	for itm in new_words:
 		word={
 			"word": itm.word,
