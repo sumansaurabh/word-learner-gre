@@ -8,6 +8,10 @@ body {
 	background-color: #572779;
 }
 
+canvas{
+    position: absolute;
+}
+
 .words-box {
     margin-left: 5%;
     margin-right: 5%;
@@ -106,5 +110,5 @@ body {
 
 .score-label {
 	margin-left: 10px;
-	margin-right: 30%;
+	margin-right: 20%;
 }

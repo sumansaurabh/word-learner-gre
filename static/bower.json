@@ -10,7 +10,8 @@
     "ui-router": "~0.2.13",
     "bootstrap-btn-outline-rounded": "~0.0.3",
     "angular-animate": "~1.3.15",
-    "components-font-awesome": "~4.3.0"
+    "components-font-awesome": "~4.3.0",
+    "fireworks-canvas": "^2.2.0"
   },
   "devDependencies": {
     "angular-mocks": "~1.3.0",

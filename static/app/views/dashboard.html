@@ -1,13 +1,15 @@
-<div class="dashboard-page">
+<div class="dashboard-page" id="dashboard-page">
 
 	<div class="score-board">
 		<span class="score-label">Current Score: {{current_score.correct}}/{{current_score.attempts}} </span>
 		<span class="score-label">Average Score till Last Week: {{average_score.correct}}/{{average_score.attempts}}</span>
+
+		<span class="score-label">Revised: {{current_score.attempts}}</span>
 		
 	</div>
 
 
-  	<div class="container-fluid words-box">
+  	<div class="container-fluid words-box" ng-if="show_words">
 	    <div class="row">
 
 	      <div ng-repeat="word in word_list track by $index" class="col-sm-6 col-md-6 container-word">

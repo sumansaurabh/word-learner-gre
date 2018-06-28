@@ -20,10 +20,46 @@ app.controller('DashboardCtrl', function($scope, $state, $http) {
         }
     });
     
+
+    // var firework_container = document.getElementById('dashboard-page')
+    // var options = {
+    //   maxRockets: 3,            // max # of rockets to spawn
+    //   rocketSpawnInterval: 150, // millisends to check if new rockets should spawn
+    //   numParticles: 100,        // number of particles to spawn when rocket explodes (+0-10)
+    //   explosionMinHeight: 0.9,  // percentage. min height at which rockets can explode
+    //   explosionMaxHeight: 0.7,  // percentage. max height before a particle is exploded
+    //   explosionChance: 0.08     // chance in each tick the rocket will explode
+    // };
+
+    // var fireworks = new Fireworks(firework_container, options)
+    // var stop = fireworks.start()
+    // stop() // stop rockets from spawning
+    // fireworks.stop() // also stops fireworks.
+    // fireworks.kill() // forcibly stop fireworks
+    // fireworks.fire() // fire a single rocket.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**********************************/
     
 
     $scope.word_list=[];
     var queue=[];
+    $scope.show_words=true;
 
     function fetch_words() {
         $http({
@@ -34,12 +70,31 @@ app.controller('DashboardCtrl', function($scope, $state, $http) {
             console.log($scope.word_list)
         });
 
-        $scope.current_score = {
-            "correct" : 0,
-            "attempts" : 0
-        };
+        $scope.current_score = get_ls();
+    }
+
+    function update_ls() {
+        var d=new Date();
+        var key=d.toLocaleDateString();
+        var data=JSON.stringify($scope.current_score);
+        localStorage.setItem("revison-"+key, data);
+    }
+
+    function get_ls() {
+        var d=new Date();
+        var key=d.toLocaleDateString();
+        var data =localStorage.getItem("revison-"+key);
+
+        if(data==null) {
+            return {
+                "correct": 0,
+                "attempts": 0 
+            }
+        }
+        return JSON.parse(data);
 
     }
+
 
     function fetch_average_score() {
         $http({
@@ -53,6 +108,8 @@ app.controller('DashboardCtrl', function($scope, $state, $http) {
 
     fetch_words();
     fetch_average_score();
+
+
     
 
     $scope.submit_answer = function(question_idx, option_idx) {
@@ -64,10 +121,13 @@ app.controller('DashboardCtrl', function($scope, $state, $http) {
             if($scope.word_list[question_idx].answer_idx===option_idx) {
                 $scope.current_score.correct+=1;
                 $scope.word_list[question_idx].state="CORRECT";
+                achievement();
             } else {
                 $scope.word_list[question_idx].state="INCORRECT";
             }
         }
+
+        update_ls();
 
         fetch_limited_question();
 
@@ -111,6 +171,24 @@ app.controller('DashboardCtrl', function($scope, $state, $http) {
         }).then(function (response) {
             $scope.word_list[question_idx]=response.data.data[0];
         });
+
+    }
+
+    function achievement() {
+        var stop;
+        // if($scope.current_score.correct %5==0) {
+        //     $scope.show_words=false;
+        //     stop = fireworks.start()
+        // }
+
+        // setTimeout(function(){
+        //     stop();
+        //     $scope.show_words=true;
+        //     $scope.$apply();
+        // }, 5000)
+
+
+
 
     }
 

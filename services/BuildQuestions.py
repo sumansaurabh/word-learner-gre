@@ -2,7 +2,7 @@
 # @Author: perfectus
 # @Date:   2018-06-27 20:45:28
 # @Last Modified by:   sumansaurabh
-# @Last Modified time: 2018-06-28 11:56:53
+# @Last Modified time: 2018-06-28 13:06:16
 
 import config
 from Models.Words import Words
@@ -50,7 +50,7 @@ def fetch_limited_question(n):
 
 def fetch_words(n):
 
-	wrong_words=config.db.session.query(Words).filter(Words.attempts!=0).filter(Words.correct/Words.attempts<0.7).limit(1)
+	wrong_words=config.db.session.query(Words).filter(Words.attempts!=0).filter(Words.correct/Words.attempts<0.7).limit(4)
 
 	word_list=[]
 
