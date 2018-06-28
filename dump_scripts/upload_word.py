@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: perfectus
 # @Date:   2018-06-27 20:00:24
-# @Last Modified by:   perfectus
-# @Last Modified time: 2018-06-27 20:57:13
+# @Last Modified by:   sumansaurabh
+# @Last Modified time: 2018-06-28 02:37:09
 
 # words={}
 
@@ -23,7 +23,7 @@ import json
 import requests
 from pprint import pprint
 
-with open('words.json') as f:
+with open('baron-final.json') as f:
     data = json.load(f)
 
 

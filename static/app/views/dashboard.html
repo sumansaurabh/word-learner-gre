@@ -3,14 +3,14 @@
 	<div class="score-board">
 		<span class="score-label">Current Score: {{current_score.correct}}/{{current_score.attempts}} </span>
 		<span class="score-label">Average Score till Last Week: {{average_score.correct}}/{{average_score.attempts}}</span>
-		<button ng-show="current_score.attempts >=12" style="background-color: green" ng-click="reset_word_list()">Reset</button>
+		<button ng-show="current_score.attempts >=4" style="background-color: green" ng-click="reset_word_list()">Reset</button>
 	</div>
 
 
-  	<div class="container-fluid">
+  	<div class="container-fluid words-box">
 	    <div class="row">
 
-	      <div ng-repeat="word in word_list track by $index" class="col-sm-4 col-md-4 container-word">
+	      <div ng-repeat="word in word_list track by $index" class="col-sm-6 col-md-6 container-word">
 	      	<div ng-show="word.state!=='ACTIVE'" ng-class="{'green-lay': (word.state=='CORRECT'), 'red-lay': (word.state=='INCORRECT')}">
 
 
