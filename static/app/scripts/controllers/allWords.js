@@ -2,7 +2,7 @@
 * @Author: sumansaurabh
 * @Date:   2018-06-29 13:43:46
 * @Last Modified by:   sumansaurabh
-* @Last Modified time: 2018-06-29 16:21:16
+* @Last Modified time: 2018-06-29 23:26:50
 */
 'use strict';
 
@@ -14,7 +14,7 @@
  * Controller of yapp
  */
 
-app.controller('AllWordsCtrl', function($scope, $state, $http) {
+app.controller('AllWordsCtrl', function($scope, $rootScope, $state, $http) {
     $scope.$state = $state;
     
     function create_table(data) {
@@ -124,7 +124,7 @@ app.controller('AllWordsCtrl', function($scope, $state, $http) {
 	function get_words() {
 		 $http({
             method: 'GET',
-            url: "/api/allWords"
+            url: "/api/"+$rootScope.wordlist.selected_word_list+"/allWords"
         }).then(function (response) {
             var data=response['data']['data'];
             $scope.not_attempted=response['data']['not_attempted'];
