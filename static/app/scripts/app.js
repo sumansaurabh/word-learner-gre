@@ -78,6 +78,7 @@ app.run(function ($rootScope, $state, $auth) {
 
             this.selected_word_list=wordlist_type;
             localStorage.setItem("wordlist_type", wordlist_type);
+            $state.go($state.current, {}, {reload: true});
         }
     };
 
