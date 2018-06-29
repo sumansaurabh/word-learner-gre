@@ -18,5 +18,6 @@ Install all required JS libraries
 
 > cd static/
 > bower install
+> npm install
 
 Enjoy!
