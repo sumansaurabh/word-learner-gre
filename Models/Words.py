@@ -2,7 +2,7 @@
 # @Author: perfectus
 # @Date:   2018-06-27 16:56:48
 # @Last Modified by:   sumansaurabh
-# @Last Modified time: 2018-06-29 14:41:30
+# @Last Modified time: 2018-06-29 22:37:51
 
 from sqlalchemy import Column, Integer, Float, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
@@ -23,6 +23,7 @@ class Words(Base):
 		return x
 
 	word = Column(String(100), primary_key=True)
+	word_type=Column(String(10), primary_key=True)
 	meaning = Column(String(2500))
 	last_appeared=Column(DateTime, default=_get_date())
 	attempts=Column(Float, default=0)

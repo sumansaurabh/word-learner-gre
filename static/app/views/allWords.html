@@ -1,6 +1,25 @@
 <div class="score-board">
-	<span class="score-label">Yet to Attempt: {{not_attempted}} </span>
+	<div style="text-align: center; width: 85%; display: inline-block;">
+		<span >Yet to Attempt: {{not_attempted}} </span>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span>Ignored: {{ignored_word}} </span>
+	</div>
+
+	<select style="color: black" ng-model="wordlist.selected_word_list" ng-change="wordlist.change_wordlist_type(wordlist.selected_word_list)" ng-options="item.id as item.name for item in wordlist.wordlist_type"></select>
 </div>
+
+
+
+
+
+<div class="page-change-right" ui-sref="wordQuiz">
+	<button class="fa fa-angle-right" ></button>
+</div>
+
+<div class="page-change-left" ui-sref="wordQuiz">
+	<button class="fa fa-angle-left" ></button>
+</div>
+
 
 <div class="all-words-page" id="all-words-page">
   	<div class="container-fluid">

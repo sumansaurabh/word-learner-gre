@@ -28,8 +28,9 @@ def add_word():
 
 	word = data["word"]
 	meaning = data["meaning"]
+	word_type=data["word_type"]
 
-	word = Words(word=word, meaning=meaning)
+	word = Words(word=word, meaning=meaning, word_type=word_type)
 	print(word)
 	config.db.session.add(word)
 	config.db.session.commit()
@@ -37,20 +38,22 @@ def add_word():
 	return jsonify({'hello': "I am your coffee"})
 
 
-@api.route('/api/fetch', methods=['GET'])
+@api.route('/api/<word_type>/fetch', methods=['GET'])
 @jsonify_resp
-def get_word_list():
+def get_word_list(word_type):
 	"""Checkk authentication flow"""
 
-	word_list=BuildQuestions.fetch_words(10)
+
+
+	word_list=BuildQuestions.fetch_words(word_type, 10)
 	return {"data": word_list}, 200
 
-@api.route('/api/fetch_limited/<limit>', methods=['GET'])
+@api.route('/api/<word_type>/fetch_limited/<limit>', methods=['GET'])
 @jsonify_resp
-def get_limited_word_list(limit):
+def get_limited_word_list(word_type, limit):
 	"""Checkk authentication flow"""
 
-	word_list=BuildQuestions.fetch_limited_question(limit)
+	word_list=BuildQuestions.fetch_limited_question(word_type, limit)
 	return {"data": word_list}, 200
 	
 
@@ -74,12 +77,12 @@ def submit_word():
 	
 	return {'data': data}, 200
 
-@api.route('/api/average_score', methods=['GET'])
+@api.route('/api/<word_type>/average_score', methods=['GET'])
 @jsonify_resp
-def get_average_score():
+def get_average_score(word_type):
 	"""Checkk authentication flow"""
 
-	data=BuildQuestions.get_average_score()
+	data=BuildQuestions.get_average_score(word_type)
 
 
 	
@@ -101,20 +104,24 @@ def ignore_word():
 	return {'data': data}, 200
 
 
-@api.route('/api/allWords', methods=['GET'])
+@api.route('/api/<word_type>/allWords', methods=['GET'])
 @jsonify_resp
-def all_words():
+def all_words(word_type):
 	"""Checkk authentication flow"""
 
 	words=[]
-	data=config.db.session.query(Words).all()
+	data=config.db.session.query(Words).filter_by(word_type=word_type).all()
 	not_attempted=0
+	ignored_word=0
 	for itm in data:
 		# print(itm)
 		if itm.attempts==0:
 			not_attempted+=1
+		if itm.status==-1:
+			ignored_word+=1
+
 		words.append(itm.__dict())
 
 	
-	return {'data': words, "not_attempted": not_attempted}, 200
+	return {'data': words, "not_attempted": not_attempted, "ignored_word": ignored_word}, 200
 

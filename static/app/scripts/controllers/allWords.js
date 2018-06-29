@@ -2,7 +2,7 @@
 * @Author: sumansaurabh
 * @Date:   2018-06-29 13:43:46
 * @Last Modified by:   sumansaurabh
-* @Last Modified time: 2018-06-29 15:52:50
+* @Last Modified time: 2018-06-29 16:21:16
 */
 'use strict';
 
@@ -116,6 +116,10 @@ app.controller('AllWordsCtrl', function($scope, $state, $http) {
 		    column_based_filter();
 	}
 
+	$scope.change_page = function() {
+
+	}
+
 
 	function get_words() {
 		 $http({
@@ -123,7 +127,8 @@ app.controller('AllWordsCtrl', function($scope, $state, $http) {
             url: "/api/allWords"
         }).then(function (response) {
             var data=response['data']['data'];
-            $scope.not_attempted=response['data']['not_attempted']
+            $scope.not_attempted=response['data']['not_attempted'];
+            $scope.ignored_word=response['data']['ignored_word'];
             create_table(data);
         });
 

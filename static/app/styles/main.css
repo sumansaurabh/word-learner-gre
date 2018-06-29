@@ -162,3 +162,16 @@ table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column
 .brown {
     background-color: #d8aeae !important;
 }
+
+.page-change-left {
+    position: fixed;
+    top: 40%;
+    font-size: 125px;
+}
+
+.page-change-right {
+    position: fixed;
+    top: 40%;
+    right: 0;
+    font-size: 125px;
+}

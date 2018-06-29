@@ -8,11 +8,14 @@
  * Controller of yapp
  */
 
-app.controller('WordQuizCtrl', function($scope, $state, $http) {
+app.controller('WordQuizCtrl', function($scope, $rootScope, $state, $http) {
     $scope.$state = $state;
     var hello = "hellp";
 
     console.log("in WordQUiz cteel");
+
+
+
     $scope.menuItems = [];
     angular.forEach($state.get(), function (item) {
         if (item.data && item.data.visible) {
@@ -30,7 +33,7 @@ app.controller('WordQuizCtrl', function($scope, $state, $http) {
     function fetch_words() {
         $http({
             method: 'GET',
-            url: "/api/fetch"
+            url: "/api/"+$rootScope.wordlist.selected_word_list+"/fetch"
         }).then(function (response) {
             $scope.word_list=response['data']['data'];
             console.log($scope.word_list)
@@ -65,7 +68,7 @@ app.controller('WordQuizCtrl', function($scope, $state, $http) {
     function fetch_average_score() {
         $http({
             method: 'GET',
-            url: "/api/average_score"
+            url: "/api/"+$rootScope.wordlist.selected_word_list+"/average_score"
         }).then(function (response) {
             $scope.average_score = response.data.data;
         });
@@ -125,7 +128,7 @@ app.controller('WordQuizCtrl', function($scope, $state, $http) {
             console.log(response)
             $http({
                 method: 'GET',
-                url: "/api/fetch_limited/1"
+                url: "/api/"+$rootScope.wordlist.selected_word_list+"/fetch_limited/1"
             }).then(function (response) {
                 $scope.word_list[question_idx]=response.data.data[0];
             });
@@ -143,7 +146,7 @@ app.controller('WordQuizCtrl', function($scope, $state, $http) {
 
         $http({
             method: 'GET',
-            url: "/api/fetch_limited/1"
+            url: "/api/"+$rootScope.wordlist.selected_word_list+"/fetch_limited/1"
         }).then(function (response) {
             $scope.word_list[question_idx]=response.data.data[0];
         });

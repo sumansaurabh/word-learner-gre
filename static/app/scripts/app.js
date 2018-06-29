@@ -57,6 +57,39 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
 });
 
 app.run(function ($rootScope, $state, $auth) {
+
+    $rootScope.wordlist={
+        "wordlist_type" :[{
+            id: "baron",
+            name:"Baron"
+            }, {
+                id: "manhattan_essentials",
+                name:"Manhattan Essentials"
+            }, {
+                id: "manhattan_advanced",
+                name:"Manhattan Advanced"
+            },{
+                id: "Magoosh",
+                name:"magoosh"
+            }],
+        "selected_word_list": "baron",
+        "change_wordlist_type" : function(wordlist_type) {
+            console.log("suman hel ->",wordlist_type);
+
+            this.selected_word_list=wordlist_type;
+            localStorage.setItem("wordlist_type", wordlist_type);
+        }
+    };
+
+    var selected_word_list=localStorage.getItem("wordlist_type");
+
+    if(selected_word_list) {
+        $rootScope.wordlist.selected_word_list=selected_word_list;
+    } else {
+        $rootScope.wordlist.selected_word_list="baron";
+    }
+
+
     $rootScope.$on('$stateChangeStart',
         function (event, toState) {
             var requiredLogin = false;

@@ -1,10 +1,21 @@
+<div class="page-change-right" ui-sref="allWords">
+	<button class="fa fa-angle-right" ></button>
+</div>
+
+<div class="page-change-left" ui-sref="allWords">
+	<button class="fa fa-angle-left" ></button>
+</div>
+
 <div class="dashboard-page" id="dashboard-page">
 
 	<div class="score-board">
 		<span class="score-label">Current Score: {{current_score.correct}}/{{current_score.attempts}} </span>
 		<span class="score-label">Average Score since Last Week: {{average_score.correct}}/{{average_score.attempts}}</span>
 
-		<span >Revised: {{current_score.attempts}}</span>
+		<span style="margin-right: 90px">Revised: {{current_score.attempts}}</span>
+
+		<select style="color: black" ng-model="wordlist.selected_word_list" ng-change="wordlist.change_wordlist_type(wordlist.selected_word_list)" ng-options="item.id as item.name for item in wordlist.wordlist_type"></select>
+
 		
 	</div>
 
