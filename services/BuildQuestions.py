@@ -2,7 +2,7 @@
 # @Author: perfectus
 # @Date:   2018-06-27 20:45:28
 # @Last Modified by:   sumansaurabh
-# @Last Modified time: 2018-06-28 13:06:16
+# @Last Modified time: 2018-06-28 16:57:12
 
 import config
 from Models.Words import Words
@@ -16,7 +16,7 @@ from sqlalchemy.sql import label
 def fetch_limited_question(n):
 
 	word_list=[]
-	other_time = datetime.now() - timedelta(hours=0.01)
+	other_time = datetime.now() - timedelta(hours=1)
 	new_words=config.db.session.query(Words).filter(Words.last_appeared<other_time).filter(Words.status==0).order_by(func.random()).limit(n)
 	for itm in new_words:
 		word={
@@ -50,11 +50,12 @@ def fetch_limited_question(n):
 
 def fetch_words(n):
 
-	wrong_words=config.db.session.query(Words).filter(Words.attempts!=0).filter(Words.correct/Words.attempts<0.7).limit(4)
+	wrong_words=config.db.session.query(Words).filter(Words.status==0).filter(Words.attempts!=0).filter((Words.correct/Words.attempts)<0.7).limit(4)
 
 	word_list=[]
 
 	for itm in wrong_words:
+		print(itm)
 
 		word={
 			"word": itm.word,
@@ -83,7 +84,7 @@ def fetch_words(n):
 
 		word_list.append(word)
 
-	other_time = datetime.now() - timedelta(hours=0.01)
+	other_time = datetime.now() - timedelta(hours=1)
 	new_words=config.db.session.query(Words).filter(Words.last_appeared<other_time).filter(Words.status==0).order_by(func.random()).limit(4-len(word_list))
 	for itm in new_words:
 		word={

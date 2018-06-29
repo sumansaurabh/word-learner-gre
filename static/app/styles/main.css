@@ -112,3 +112,53 @@ canvas{
 	margin-left: 10px;
 	margin-right: 20%;
 }
+
+
+#all-words-page{
+    color: black;
+    background-color: #bdb7c1;
+    margin: 40px 60px 0px 60px;
+}
+
+.word_meaning {
+    font-size: 22px
+}
+
+.word_row {
+    font-size: 30px;
+}
+
+.sorting {
+    font-size: 30px;
+}
+
+.even {
+    background-color: #FFDE68 !important;
+}
+
+table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column.stripe tbody tr.even > .sorting_1 {
+    background-color: #FFDE68;
+}
+
+.dataTables_paginate {
+    color: black;
+    font-size: 20px;
+}
+
+.red {
+    background-color: #e25353 !important;
+}
+
+
+
+.green {
+    background-color: green !important;
+}
+
+.orange {
+    background-color: #b7a20a !important;
+}
+
+.brown {
+    background-color: #d8aeae !important;
+}

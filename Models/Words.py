@@ -2,9 +2,9 @@
 # @Author: perfectus
 # @Date:   2018-06-27 16:56:48
 # @Last Modified by:   sumansaurabh
-# @Last Modified time: 2018-06-28 01:05:24
+# @Last Modified time: 2018-06-29 14:41:30
 
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, Float, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from jwt import DecodeError, ExpiredSignature
 from datetime import datetime, timedelta
@@ -25,8 +25,8 @@ class Words(Base):
 	word = Column(String(100), primary_key=True)
 	meaning = Column(String(2500))
 	last_appeared=Column(DateTime, default=_get_date())
-	attempts=Column(Integer, default=0)
-	correct=Column(Integer, default=0)
+	attempts=Column(Float, default=0)
+	correct=Column(Float, default=0)
 	status=Column(Integer, default=0)
 
 

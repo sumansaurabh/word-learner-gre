@@ -2,7 +2,7 @@
 # @Author: perfectus
 # @Date:   2018-06-27 20:00:24
 # @Last Modified by:   sumansaurabh
-# @Last Modified time: 2018-06-28 02:37:09
+# @Last Modified time: 2018-06-28 14:47:44
 
 # words={}
 
@@ -22,18 +22,48 @@
 import json
 import requests
 from pprint import pprint
-
+import re
 with open('baron-final.json') as f:
     data = json.load(f)
 
 
+def new_str(_str):
+	new_str=""
+	idx=0
+	for ch in _str:
+		if ch!='/':
+			new_str += ch
+
+		else:
+			break
+		idx+=1
+
+	
+	new_idx=-1
+	for i in range(idx+1, len(_str)):
+		ch=_str[i]
+		if ch==' ' or ch=='/':
+			continue
+		new_idx=i
+		break
+	if new_idx != -1:
+		return new_str+"/"+_str[new_idx+1:]
+	return new_str
+
+
+
+
+
 for itm in data:
 	url="http://localhost:5000/api/add"
-
+	data[itm]=re.sub(r'[^\x00-\x7F]+','', data[itm])
+	data[itm]=new_str(data[itm])
 	payload={
 		"word" : itm,
 		"meaning": data[itm]
 	}
+
+	# pprint(payload)
 
 	headers = {
 		"Content-Type" : "application/json",

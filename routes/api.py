@@ -99,3 +99,22 @@ def ignore_word():
 	config.db.session.commit()
 	
 	return {'data': data}, 200
+
+
+@api.route('/api/allWords', methods=['GET'])
+@jsonify_resp
+def all_words():
+	"""Checkk authentication flow"""
+
+	words=[]
+	data=config.db.session.query(Words).all()
+	not_attempted=0
+	for itm in data:
+		# print(itm)
+		if itm.attempts==0:
+			not_attempted+=1
+		words.append(itm.__dict())
+
+	
+	return {'data': words, "not_attempted": not_attempted}, 200
+

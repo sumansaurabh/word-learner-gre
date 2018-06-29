@@ -1,0 +1,43 @@
+<div class="dashboard-page" id="dashboard-page">
+
+	<div class="score-board">
+		<span class="score-label">Current Score: {{current_score.correct}}/{{current_score.attempts}} </span>
+		<span class="score-label">Average Score since Last Week: {{average_score.correct}}/{{average_score.attempts}}</span>
+
+		<span >Revised: {{current_score.attempts}}</span>
+		
+	</div>
+
+
+  	<div class="container-fluid words-box" ng-if="show_words">
+	    <div class="row">
+
+	      <div ng-repeat="word in word_list track by $index" class="col-sm-6 col-md-6 container-word">
+	      	<div ng-show="word.state!=='ACTIVE'" ng-class="{'green-lay': (word.state=='CORRECT'), 'red-lay': (word.state=='INCORRECT')}">
+	      		<div class="link-word-google">
+	      			Status: {{word.correct+1}}/{{word.attempts+1}}
+	      			<button style="background-color: orange" ng-click="ignore_word($index)">Ignore</button>
+	      			<a href="https://www.google.co.in/search?q={{word.word}} meaning" target="_blank">
+		    		Open in Google ->
+	      				
+	      			</a>
+	      		</div>
+	      		
+	      	</div>
+	      	<div class="word-card">
+		      	<div class="word-label">{{word.word}}</div>
+		      	<div ng-repeat="option in word.options track by $index" ng-click="word.selected=$index; submit_answer($parent.$index, $index)" >
+		      		<div class="options-meaning" ng-class="{'selected-option': (word.selected==$index)}">{{option}}</div>
+		      	</div>
+	      	</div>
+
+	      </div>
+	     
+	    </div>
+	</div>
+</div>
+
+
+
+
+

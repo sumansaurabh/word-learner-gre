@@ -21,7 +21,7 @@ LIST_MODULES = [api, home]
 template_dir = os.path.abspath('./static/dist/')
 app = Flask(__name__, template_folder=template_dir)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///iq_deployment.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///gre.db'
 app.config['FACEBOOK_SECRET'] = os.environ.get('FACEBOOK_SECRET')
 
 config.db = SQLAlchemy(app)

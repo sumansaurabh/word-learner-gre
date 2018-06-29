@@ -10,7 +10,8 @@
  */
 var states = [
         { name: 'base', state: { abstract: true, url: '', templateUrl: 'views/base.html', data: {text: "Base", visible: false } } },
-        { name: 'wordQuiz', state: { url: '/wordQuiz', parent: 'base', templateUrl: 'views/wordQuiz.html', controller: 'WordQuizCtrl', data: {text: "WordQuizCtrl", visible: false } } }
+        { name: 'wordQuiz', state: { url: '/wordQuiz', parent: 'base', templateUrl: 'views/wordQuiz.html', controller: 'WordQuizCtrl', data: {text: "WordQuizCtrl", visible: false } } },
+        { name: 'allWords', state: { url: '/allWords', parent: 'base', templateUrl: 'views/allWords.html', controller: 'AllWordsCtrl', data: {text: "AllWordsCtrl", visible: false } } }
 
         
     ];
