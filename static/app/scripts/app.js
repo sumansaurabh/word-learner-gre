@@ -69,8 +69,8 @@ app.run(function ($rootScope, $state, $auth) {
                 id: "manhattan_advanced",
                 name:"Manhattan Advanced"
             },{
-                id: "Magoosh",
-                name:"magoosh"
+                id: "magoosh",
+                name:"Magoosh"
             }],
         "selected_word_list": "baron",
         "change_wordlist_type" : function(wordlist_type) {

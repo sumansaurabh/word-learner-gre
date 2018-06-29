@@ -2,7 +2,7 @@
 * @Author: sumansaurabh
 * @Date:   2018-06-29 13:43:46
 * @Last Modified by:   sumansaurabh
-* @Last Modified time: 2018-06-29 23:26:50
+* @Last Modified time: 2018-06-29 23:44:42
 */
 'use strict';
 
@@ -46,14 +46,10 @@ app.controller('AllWordsCtrl', function($scope, $rootScope, $state, $http) {
             	title : "Attempt",
             	width: '5%',
             	text_width: '30px'
-            },{
-            	title : "Last Visited",
-            	width: '5%',
-            	text_width: '120px'
             }];
 
             var row_data = data.map(function(doc){
-            	return [doc['word'], doc['meaning'], doc['status'], doc['correct'], doc['attempts']-doc['correct'], doc['attempts'], doc['last_appeared']]
+            	return [doc['word'], doc['meaning'], doc['status'], doc['correct'], doc['attempts']-doc['correct'], doc['attempts']]
             });;
 
             var graph_configuration = $('#all-words-table').DataTable( {
@@ -64,8 +60,7 @@ app.controller('AllWordsCtrl', function($scope, $rootScope, $state, $http) {
 		        	{ className: "word_meaning", "width": "5%", "targets": 2 },
 		        	{ className: "word_meaning", "width": "5%", "targets": 3 },
 		        	{ className: "word_meaning", "width": "5%", "targets": 4},
-		        	{ className: "word_meaning", "width": "5%", "targets": 5 },
-		        	{ "width": "5%", "targets": 6 }],
+		        	{ className: "word_meaning", "width": "5%", "targets": 5 }],
 		        "lengthMenu": [15, 40, 60, 80, 100],
         		"pageLength": 15,
         		"createdRow": function( row, data, dataIndex ) {
