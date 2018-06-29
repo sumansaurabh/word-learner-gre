@@ -2,7 +2,7 @@
 # @Author: perfectus
 # @Date:   2018-06-27 20:45:28
 # @Last Modified by:   sumansaurabh
-# @Last Modified time: 2018-06-29 23:17:18
+# @Last Modified time: 2018-06-30 00:11:27
 
 import config
 from Models.Words import Words
@@ -39,6 +39,7 @@ def fetch_limited_question(word_type, n):
 		word["answer"]=itm.meaning
 		word["attempts"]=itm.attempts
 		word["correct"]=itm.correct
+		word["word_type"]=itm.word_type
 		word["state"]="ACTIVE"
 
 
@@ -79,6 +80,7 @@ def fetch_words(word_type, n):
 		word["answer"]=itm.meaning
 		word["attempts"]=itm.attempts
 		word["correct"]=itm.correct
+		word["word_type"]=itm.word_type
 		word["state"]="ACTIVE"
 
 
@@ -107,6 +109,7 @@ def fetch_words(word_type, n):
 		word["answer"]=itm.meaning
 		word["attempts"]=itm.attempts
 		word["correct"]=itm.correct
+		word["word_type"]=itm.word_type
 		word["state"]="ACTIVE"
 
 

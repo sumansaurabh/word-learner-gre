@@ -42,8 +42,8 @@ def add_word():
 @jsonify_resp
 def get_word_list(word_type):
 	"""Checkk authentication flow"""
-
-
+	print("##################")
+	print("word word_type->",word_type)
 
 	word_list=BuildQuestions.fetch_words(word_type, 10)
 	return {"data": word_list}, 200
@@ -64,6 +64,8 @@ def submit_word():
 
 	data=request.json
 
+	print(data)
+
 	if data['state']=="CORRECT":
 		config.db.session.query(Words).filter_by(word=data['word']).update({"attempts": Words.attempts+1, "correct":Words.correct+1, "last_appeared": datetime.now()})
 	else:
@@ -71,7 +73,7 @@ def submit_word():
 	
 	config.db.session.commit()
 
-	data=BuildQuestions.get_average_score()
+	data=BuildQuestions.get_average_score(data['word_type'])
 
 
 	
