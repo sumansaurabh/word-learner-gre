@@ -10,7 +10,8 @@
  */
 var states = [
         { name: 'base', state: { abstract: true, url: '', templateUrl: 'views/base.html', data: {text: "Base", visible: false } } },
-        { name: 'dashboard', state: { url: '/dashboard', parent: 'base', templateUrl: 'views/dashboard.html', controller: 'DashboardCtrl', data: {text: "Dashboard", visible: false } } }
+        { name: 'wordQuiz', state: { url: '/wordQuiz', parent: 'base', templateUrl: 'views/wordQuiz.html', controller: 'WordQuizCtrl', data: {text: "WordQuizCtrl", visible: false } } }
+
         
     ];
     console.log("suman");
@@ -47,7 +48,7 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
 
 
     // $urlRouterProvider.when('/dashboard', '/dashboard/overview');
-    $urlRouterProvider.otherwise('/dashboard');
+    $urlRouterProvider.otherwise('/wordQuiz');
     
     angular.forEach(states, function (state) {
         $stateProvider.state(state.name, state.state);
@@ -63,7 +64,7 @@ app.run(function ($rootScope, $state, $auth) {
 
             if (requiredLogin && !$auth.isAuthenticated()) {
                 event.preventDefault();
-                $state.go('dashboard');
+                $state.go('wordQuiz');
         }
     });
 });

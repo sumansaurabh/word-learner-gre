@@ -8,11 +8,11 @@
  * Controller of yapp
  */
 
-app.controller('DashboardCtrl', function($scope, $state, $http) {
+app.controller('WordQuizCtrl', function($scope, $state, $http) {
     $scope.$state = $state;
     var hello = "hellp";
 
-    console.log("in dashbaord cteel");
+    console.log("in WordQUiz cteel");
     $scope.menuItems = [];
     angular.forEach($state.get(), function (item) {
         if (item.data && item.data.visible) {
@@ -20,40 +20,6 @@ app.controller('DashboardCtrl', function($scope, $state, $http) {
         }
     });
     
-
-    // var firework_container = document.getElementById('dashboard-page')
-    // var options = {
-    //   maxRockets: 3,            // max # of rockets to spawn
-    //   rocketSpawnInterval: 150, // millisends to check if new rockets should spawn
-    //   numParticles: 100,        // number of particles to spawn when rocket explodes (+0-10)
-    //   explosionMinHeight: 0.9,  // percentage. min height at which rockets can explode
-    //   explosionMaxHeight: 0.7,  // percentage. max height before a particle is exploded
-    //   explosionChance: 0.08     // chance in each tick the rocket will explode
-    // };
-
-    // var fireworks = new Fireworks(firework_container, options)
-    // var stop = fireworks.start()
-    // stop() // stop rockets from spawning
-    // fireworks.stop() // also stops fireworks.
-    // fireworks.kill() // forcibly stop fireworks
-    // fireworks.fire() // fire a single rocket.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**********************************/
     
 
@@ -146,13 +112,23 @@ app.controller('DashboardCtrl', function($scope, $state, $http) {
     }
 
     $scope.ignore_word=function(question_idx) {
+
+        var x=queue.indexOf(question_idx);
+
+        queue.splice(x,1);
+
         $http({
             method: 'POST',
             url: "/api/ignore_word",
             data: $scope.word_list[question_idx]
         }).then(function (response) {
             console.log(response)
-            $scope.word_list.splice(question_idx,1);
+            $http({
+                method: 'GET',
+                url: "/api/fetch_limited/1"
+            }).then(function (response) {
+                $scope.word_list[question_idx]=response.data.data[0];
+            });
 
         });
     }
